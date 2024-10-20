@@ -1,0 +1,34 @@
+# Build artifacts
+build/
+CMakeFiles/
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ilk
+*.exp
+
+# CMake cache and generated files
+CMakeCache.txt
+cmake_install.cmake
+
+# IDE-specific files
+.vscode/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.suo
+*.ncb
+*.sdf
+*.opensdf
+*.tlog
+*.idb
+*.log
+*.ipch
+*.aps
+*.user

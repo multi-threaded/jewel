@@ -7,7 +7,7 @@
 
 namespace Compiler {
 
-    const std::string TokenTypeToString(TokenType type)
+    std::string TokenTypeToString(TokenType type)
     {
         switch (type) {
             case TokenType::KEYWORD: return "KEYWORD";

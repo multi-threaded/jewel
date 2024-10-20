@@ -18,7 +18,7 @@ namespace Compiler {
         END_OF_FILE
     };
 
-    const std::string TokenTypeToString(TokenType type);
+    std::string TokenTypeToString(TokenType type);
 
     struct Token
     {
