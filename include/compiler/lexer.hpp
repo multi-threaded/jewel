@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <unordered_map>
 
 namespace Compiler {
 
@@ -28,16 +29,16 @@ namespace Compiler {
         unsigned int Column;
 
         Token(TokenType type, const std::string& lexeme, unsigned int line, unsigned int column);
-        void Debug() const;
+        void Debug(void) const;
     };
 
     class Lexer
     {
     public:
         Lexer(const std::string& path, const std::string& source);
-        std::unique_ptr<Token> NextToken();
-        std::vector<std::unique_ptr<Token>> Tokenize();
-        void Debug() const;
+        std::unique_ptr<Token> NextToken(void);
+        std::vector<std::unique_ptr<Token>> Tokenize(void);
+        void Debug(void) const;
 
     private:
         std::string m_Path;
@@ -48,7 +49,8 @@ namespace Compiler {
         unsigned int m_Column;
 
     private:
-        void Advance();
+        void Advance(void);
+        void HandleWhitespaceAndComments(void);
     };
 
 }
