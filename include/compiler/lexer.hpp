@@ -11,10 +11,10 @@ namespace Compiler {
     {
         enum class Type { ILLEGAL, KEYWORD, LITERAL, OPERATOR, IDENTIFIER, PUNCTUATION, GROUPING, END_OF_FILE };
 
-        Type Type;
-        std::string Lexeme;
-        unsigned int Line;
-        unsigned int Column;
+        Type m_Type;
+        std::string m_Lexeme;
+        unsigned int m_Line;
+        unsigned int m_Column;
 
         Token(Type type, const std::string& lexeme, unsigned int line, unsigned int column);
         void Debug(void) const;

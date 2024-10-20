@@ -9,13 +9,13 @@
 namespace Compiler {
 
     Token::Token(Token::Type type, const std::string& lexeme, unsigned int line, unsigned int column)
-        : Type(type), Lexeme(lexeme), Line(line), Column(column)
+        : m_Type(type), m_Lexeme(lexeme), m_Line(line), m_Column(column)
     {}
 
     void Token::Debug(void) const
     {
-        std::cout << "Token(Type=" << static_cast<int>(Type) << ", Lexeme=" <<
-            Lexeme << ", Line=" << Line << ", Column=" << Column << ")\n";
+        std::cout << "Token(Type=" << static_cast<int>(m_Type) << ", Lexeme=" <<
+            m_Lexeme << ", Line=" << m_Line << ", Column=" << m_Column << ")\n";
     }
 
     static const std::unordered_map<std::string, Token::Type> LOOKUP_TABLE = {
@@ -29,10 +29,10 @@ namespace Compiler {
     
     std::unique_ptr<Token> Lexer::NextToken(void)
     {
+        HandleWhitespaceAndComments();
+
         if (m_Position >= m_SourceLen)
             return std::make_unique<Token>(Token::Type::END_OF_FILE, "\0", m_Line, m_Column);
-
-        HandleWhitespaceAndComments();
 
         // TODO: finish implementing
 
@@ -46,7 +46,7 @@ namespace Compiler {
 
         while ((token = NextToken()) != nullptr) {
             tokens.push_back(std::move(token));
-            if (tokens.back()->Type == Token::Type::END_OF_FILE)
+            if (tokens.back()->m_Type == Token::Type::END_OF_FILE)
                 break;
         }
 
