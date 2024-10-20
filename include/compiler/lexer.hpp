@@ -7,28 +7,16 @@
 
 namespace Compiler {
 
-    enum class TokenType
-    {
-        ILLEGAL,
-        KEYWORD,
-        LITERAL,
-        OPERATOR,
-        IDENTIFIER,
-        PUNCTUATION,
-        GROUPING,
-        END_OF_FILE
-    };
-
-    std::string TokenTypeToString(TokenType type);
-
     struct Token
     {
-        TokenType Type;
+        enum class Type { ILLEGAL, KEYWORD, LITERAL, OPERATOR, IDENTIFIER, PUNCTUATION, GROUPING, END_OF_FILE };
+
+        Type Type;
         std::string Lexeme;
         unsigned int Line;
         unsigned int Column;
 
-        Token(TokenType type, const std::string& lexeme, unsigned int line, unsigned int column);
+        Token(Type type, const std::string& lexeme, unsigned int line, unsigned int column);
         void Debug(void) const;
     };
 

@@ -8,31 +8,17 @@
 
 namespace Compiler {
 
-    std::string TokenTypeToString(TokenType type)
-    {
-        switch (type) {
-            case TokenType::KEYWORD: return "KEYWORD";
-            case TokenType::LITERAL: return "LITERAL";
-            case TokenType::OPERATOR: return "OPERATOR";
-            case TokenType::IDENTIFIER: return "IDENTIFIER";
-            case TokenType::PUNCTUATION: return "PUNCTUATION";
-            case TokenType::GROUPING: return "GROUPING";
-            case TokenType::END_OF_FILE: return "END_OF_FILE";
-            default: return "ILLEGAL";
-        }
-    }
-
-    Token::Token(TokenType type, const std::string& lexeme, unsigned int line, unsigned int column)
+    Token::Token(Token::Type type, const std::string& lexeme, unsigned int line, unsigned int column)
         : Type(type), Lexeme(lexeme), Line(line), Column(column)
     {}
 
     void Token::Debug(void) const
     {
-        std::cout << "Token(Type=" << TokenTypeToString(Type) << ", Lexeme=" <<
+        std::cout << "Token(Type=" << static_cast<int>(Type) << ", Lexeme=" <<
             Lexeme << ", Line=" << Line << ", Column=" << Column << ")\n";
     }
 
-    static const std::unordered_map<std::string, TokenType> LOOKUP_TABLE = {
+    static const std::unordered_map<std::string, Token::Type> LOOKUP_TABLE = {
         // TODO: implement
     };
 
@@ -44,7 +30,7 @@ namespace Compiler {
     std::unique_ptr<Token> Lexer::NextToken(void)
     {
         if (m_Position >= m_SourceLen)
-            return std::make_unique<Token>(TokenType::END_OF_FILE, "\0", m_Line, m_Column);
+            return std::make_unique<Token>(Token::Type::END_OF_FILE, "\0", m_Line, m_Column);
 
         HandleWhitespaceAndComments();
 
@@ -60,7 +46,7 @@ namespace Compiler {
 
         while ((token = NextToken()) != nullptr) {
             tokens.push_back(std::move(token));
-            if (tokens.back()->Type == TokenType::END_OF_FILE)
+            if (tokens.back()->Type == Token::Type::END_OF_FILE)
                 break;
         }
 
